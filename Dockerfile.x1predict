@@ -1,0 +1,74 @@
+# X1-Predict Production Dockerfile
+# FAANG Enterprise-Grade Container
+FROM python:3.11-slim
+
+# Set labels
+LABEL maintainer="InfinityXOne Systems"
+LABEL description="X1-Predict - Enterprise Financial Prediction System"
+LABEL version="1.0.0"
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    DEBIAN_FRONTEND=noninteractive
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    wget \
+    git \
+    ca-certificates \
+    gnupg \
+    # For Playwright/Selenium
+    chromium \
+    chromium-driver \
+    # For database drivers
+    libpq-dev \
+    # For networking
+    netcat-openbsd \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Playwright browsers
+RUN pip install playwright && \
+    playwright install chromium && \
+    playwright install-deps chromium
+
+# Copy requirements
+COPY requirements.txt .
+COPY reflection_requirements.txt .
+
+# Install Python dependencies
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    pip install -r reflection_requirements.txt && \
+    # Additional production dependencies
+    pip install gunicorn uvicorn[standard] redis pymongo psycopg2-binary
+
+# Copy application code
+COPY . .
+
+# Create necessary directories
+RUN mkdir -p /app/data /app/logs /app/config
+
+# Create non-root user
+RUN useradd -m -u 1000 x1predict && \
+    chown -R x1predict:x1predict /app
+
+# Switch to non-root user
+USER x1predict
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+# Expose ports
+EXPOSE 8080 8081
+
+# Default command
+CMD ["python", "x1_predict.py", "--mode", "hybrid", "--dashboard"]
