@@ -1,0 +1,14 @@
+{
+  "portfolio_id": "96fab550-ec21-4acc-aaad-1ca28de1b972",
+  "user_id": "4ef441d1-4539-4158-bd83-29baa3268e77",
+  "username": "trader_alice",
+  "portfolio_name": "Alice's Alpha Strategy",
+  "accuracy": 75.5,
+  "roi": 42.3,
+  "combined_score": 61.47,
+  "total_trades": 150,
+  "winning_trades": 110,
+  "total_value": 0.0,
+  "profit_loss": 0.0,
+  "last_updated": "2026-02-08T22:09:39.162479"
+}

@@ -1,0 +1,9 @@
+{
+  "deployment_id": "1af28a552fd72d2b7af3277de1c11563",
+  "network": "ethereum_goerli",
+  "contract_address": "0x48f733d7851b32de0e910fab82b74710352723cc",
+  "deployer_address": "0x4ef441d1-4539-4158-bd83-29baa3268e77",
+  "initial_supply": 100000000,
+  "deployment_tx": "0x7ab2ea2a625db2136205da94e62cbde99e90fe996d7ec762444918b8314edc94",
+  "deployment_date": "2026-02-08T22:09:39.162987"
+}

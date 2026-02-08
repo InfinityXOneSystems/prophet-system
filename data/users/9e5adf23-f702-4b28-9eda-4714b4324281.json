@@ -1,0 +1,15 @@
+{
+  "user_id": "9e5adf23-f702-4b28-9eda-4714b4324281",
+  "username": "investor_charlie",
+  "email": "charlie@example.com",
+  "created_at": "2026-02-08T22:09:39.161768",
+  "last_login": "2026-02-08T22:09:39.161958",
+  "is_active": true,
+  "display_name": "investor_charlie",
+  "avatar_url": "",
+  "bio": "",
+  "total_portfolios": 0,
+  "total_trades": 0,
+  "member_since_days": 0,
+  "password_hash": "ef53b4e5cc58b503a8d98431dc026665$76d3897a3a5bdd4d56a01103362037a6930b12c37e68110b35f9504153c69dad"
+}
