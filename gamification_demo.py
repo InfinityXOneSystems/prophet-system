@@ -69,7 +69,7 @@ def demo_user_registration(manager: GamificationManager):
             login_result = manager.login(username, password)
             if login_result['success']:
                 sessions[username] = login_result['session_id']
-                print(f"✓ Logged in: {username}")
+                print(f"✓ Logged in: {username} (existing user)")
     
     return sessions
 
@@ -91,15 +91,18 @@ def demo_portfolio_registration(manager: GamificationManager, sessions):
         import uuid
         portfolio_id = str(uuid.uuid4())
         
-        result = manager.register_portfolio_for_competition(
-            session_id=sessions[username],
-            portfolio_id=portfolio_id,
-            portfolio_name=portfolio_name
-        )
-        
-        if result['success']:
-            portfolio_ids[username] = portfolio_id
-            print(f"✓ Registered: {portfolio_name}")
+        if username in sessions:
+            result = manager.register_portfolio_for_competition(
+                session_id=sessions[username],
+                portfolio_id=portfolio_id,
+                portfolio_name=portfolio_name
+            )
+            
+            if result['success']:
+                portfolio_ids[username] = portfolio_id
+                print(f"✓ Registered: {portfolio_name}")
+        else:
+            print(f"✗ Skipped {username} (not logged in)")
     
     return portfolio_ids
 
@@ -117,17 +120,18 @@ def demo_update_performance(manager: GamificationManager, portfolio_ids):
     ]
     
     for username, accuracy, roi, total_trades, winning_trades in performances:
-        portfolio_id = portfolio_ids[username]
-        
-        manager.update_portfolio_performance(
-            portfolio_id=portfolio_id,
-            accuracy=accuracy,
-            roi=roi,
-            total_trades=total_trades,
-            winning_trades=winning_trades
-        )
-        
-        print(f"✓ Updated {username}: Accuracy={accuracy}%, ROI={roi}%")
+        if username in portfolio_ids:
+            portfolio_id = portfolio_ids[username]
+            
+            manager.update_portfolio_performance(
+                portfolio_id=portfolio_id,
+                accuracy=accuracy,
+                roi=roi,
+                total_trades=total_trades,
+                winning_trades=winning_trades
+            )
+            
+            print(f"✓ Updated {username}: Accuracy={accuracy}%, ROI={roi}%")
 
 
 def demo_infinity_coin(manager: GamificationManager, sessions):
@@ -172,6 +176,11 @@ def main():
     
     # Run demos
     sessions = demo_user_registration(manager)
+    
+    if not sessions:
+        print("\n❌ No users available. Cannot continue demo.")
+        return
+    
     portfolio_ids = demo_portfolio_registration(manager, sessions)
     demo_update_performance(manager, portfolio_ids)
     

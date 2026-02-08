@@ -1,0 +1,28 @@
+Username 'trader_alice' already exists
+Username 'crypto_bob' already exists
+Username 'investor_charlie' already exists
+
+============================================================
+  X1-PREDICT GAMIFICATION SYSTEM
+  Leaderboard Competition & Infinity Coin
+============================================================
+
+Initializing Gamification System...
+✓ System ready!
+
+
+📝 USER REGISTRATION DEMO
+------------------------------------------------------------
+
+💼 PORTFOLIO REGISTRATION DEMO
+------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/prophet-system/prophet-system/gamification_demo.py", line 203, in <module>
+    main()
+  File "/home/runner/work/prophet-system/prophet-system/gamification_demo.py", line 175, in main
+    portfolio_ids = demo_portfolio_registration(manager, sessions)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/prophet-system/prophet-system/gamification_demo.py", line 95, in demo_portfolio_registration
+    session_id=sessions[username],
+               ~~~~~~~~^^^^^^^^^^
+KeyError: 'trader_alice'
