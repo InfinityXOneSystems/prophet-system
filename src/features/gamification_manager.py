@@ -10,9 +10,9 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from ..auth.user_authentication import UserAuthenticationSystem, User, Session
-from .leaderboard_system import LeaderboardSystem, LeaderboardCategory
-from .infinity_coin_deployer import InfinityCoinDeployer, Network
+from src.auth.user_authentication import UserAuthenticationSystem, User, Session
+from src.features.leaderboard_system import LeaderboardSystem, LeaderboardCategory
+from src.features.infinity_coin_deployer import InfinityCoinDeployer, Network
 
 logger = logging.getLogger('X1_PREDICT.GAMIFICATION')
 
