@@ -14,3 +14,9 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# Gamification system data
+data/users/*.json
+data/sessions/*.json
+data/performance/*.json
+data/infinity_coin_deployments/*.json
